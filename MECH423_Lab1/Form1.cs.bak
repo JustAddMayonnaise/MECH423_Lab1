@@ -24,7 +24,6 @@ namespace SerialReaderSuperSimple
         int removedItemInZAxisQueue;
         int MAX_AVERAGE_N = 100;
         int ORIENTATION_AVERAGE_N = 10;
-        int GRAVITY_CALIBRATION_NUM = 30;
         int lastN;
 
         ConcurrentQueue<int> bytesToReadQueue = new ConcurrentQueue<int>();
@@ -56,15 +55,14 @@ namespace SerialReaderSuperSimple
         {
             if(serCOM.IsOpen)
             {
-                lock (serCOM) serCOM.Close();             // Mutex on the serial port
+                lock (serCOM) serCOM.Close();
                 btnConnectDisconnect.Text = "Connect";
                 lstbxSerParam.Items.Clear();
                 cmbbxCOMPorts.Enabled = true;
                 tmrSerRead.Enabled = false;
-				
-                txtXAxis.Clear();                        // Clear txtXAxis box
-                txtYAxis.Clear();                        //
-                txtZAxis.Clear();                        //
+                txtXAxis.Clear();
+                txtYAxis.Clear();
+                txtZAxis.Clear();
             }
             else
             {
@@ -104,12 +102,12 @@ namespace SerialReaderSuperSimple
                 int yAccel = Convert.ToInt16(txtYAxis.Text) - 128;
                 int zAccel = Convert.ToInt16(txtZAxis.Text) - 128;
 
-                if (xAccel < -GRAVITY_CALIBRATION_NUM)
+                if (xAccel < -5)
                 {
                     chklstAcceleration.SetItemCheckState(3, CheckState.Checked);
                     chklstAcceleration.SetItemCheckState(0, CheckState.Unchecked);
                 }
-                else if (xAccel > GRAVITY_CALIBRATION_NUM)
+                else if (xAccel > 5)
                 {
                     chklstAcceleration.SetItemCheckState(0, CheckState.Checked);
                     chklstAcceleration.SetItemCheckState(3, CheckState.Unchecked);
@@ -120,12 +118,12 @@ namespace SerialReaderSuperSimple
                     chklstAcceleration.SetItemCheckState(0, CheckState.Unchecked);
                 }
 
-                if (yAccel < -GRAVITY_CALIBRATION_NUM)
+                if (yAccel < -5)
                 {
                     chklstAcceleration.SetItemCheckState(4, CheckState.Checked);
                     chklstAcceleration.SetItemCheckState(1, CheckState.Unchecked);
                 }
-                else if (yAccel > GRAVITY_CALIBRATION_NUM)
+                else if (yAccel > 5)
                 {
                     chklstAcceleration.SetItemCheckState(1, CheckState.Checked);
                     chklstAcceleration.SetItemCheckState(4, CheckState.Unchecked);
@@ -136,12 +134,12 @@ namespace SerialReaderSuperSimple
                     chklstAcceleration.SetItemCheckState(1, CheckState.Unchecked);
                 }
 
-                if (zAccel < -GRAVITY_CALIBRATION_NUM)
+                if (zAccel < -5)
                 {
                     chklstAcceleration.SetItemCheckState(5, CheckState.Checked);
                     chklstAcceleration.SetItemCheckState(2, CheckState.Unchecked);
                 }
-                else if (zAccel > GRAVITY_CALIBRATION_NUM)
+                else if (zAccel > 5)
                 {
                     chklstAcceleration.SetItemCheckState(2, CheckState.Checked);
                     chklstAcceleration.SetItemCheckState(5, CheckState.Unchecked);

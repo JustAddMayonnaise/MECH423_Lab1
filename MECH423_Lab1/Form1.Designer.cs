@@ -1,6 +1,6 @@
 ﻿namespace SerialReaderSuperSimple
 {
-    partial class Form1
+    partial class frmMainWindow
     {
         /// <summary>
         /// Required designer variable.
@@ -29,14 +29,17 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
+            System.Windows.Forms.Label label1;
+            System.Windows.Forms.Label label2;
+            System.Windows.Forms.Label label3;
+            System.Windows.Forms.Label label4;
+            System.Windows.Forms.Label Current;
+            System.Windows.Forms.Label label5;
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.cmbbxCOMPorts = new System.Windows.Forms.ComboBox();
             this.btnConnectDisconnect = new System.Windows.Forms.Button();
             this.txtXAxis = new System.Windows.Forms.TextBox();
@@ -49,38 +52,75 @@
             this.txtZAvg = new System.Windows.Forms.TextBox();
             this.chrtAccelData = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.lstbxSerParam = new System.Windows.Forms.ListBox();
+            this.chklstAcceleration = new System.Windows.Forms.CheckedListBox();
+            this.chklstOrientation = new System.Windows.Forms.CheckedListBox();
+            this.txtbxBytesToRead = new System.Windows.Forms.TextBox();
+            label1 = new System.Windows.Forms.Label();
+            label2 = new System.Windows.Forms.Label();
+            label3 = new System.Windows.Forms.Label();
+            label4 = new System.Windows.Forms.Label();
+            Current = new System.Windows.Forms.Label();
+            label5 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.chrtAccelData)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(132, 311);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(78, 29);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "X axis";
+            label1.AutoSize = true;
+            label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            label1.Location = new System.Drawing.Point(12, 327);
+            label1.Name = "label1";
+            label1.Size = new System.Drawing.Size(78, 29);
+            label1.TabIndex = 3;
+            label1.Text = "X axis";
             // 
             // label2
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(132, 358);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(77, 29);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "Y axis";
+            label2.AutoSize = true;
+            label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            label2.Location = new System.Drawing.Point(12, 374);
+            label2.Name = "label2";
+            label2.Size = new System.Drawing.Size(77, 29);
+            label2.TabIndex = 3;
+            label2.Text = "Y axis";
             // 
             // label3
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(135, 404);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(75, 29);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "Z axis";
+            label3.AutoSize = true;
+            label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            label3.Location = new System.Drawing.Point(15, 420);
+            label3.Name = "label3";
+            label3.Size = new System.Drawing.Size(75, 29);
+            label3.TabIndex = 3;
+            label3.Text = "Z axis";
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new System.Drawing.Point(247, 298);
+            label4.Name = "label4";
+            label4.Size = new System.Drawing.Size(68, 20);
+            label4.TabIndex = 6;
+            label4.Text = "Average";
+            // 
+            // Current
+            // 
+            Current.AutoSize = true;
+            Current.Location = new System.Drawing.Point(136, 298);
+            Current.Name = "Current";
+            Current.Size = new System.Drawing.Size(62, 20);
+            Current.TabIndex = 6;
+            Current.Text = "Current";
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            label5.Location = new System.Drawing.Point(15, 499);
+            label5.Name = "label5";
+            label5.Size = new System.Drawing.Size(131, 29);
+            label5.TabIndex = 3;
+            label5.Text = "Orientation";
             // 
             // cmbbxCOMPorts
             // 
@@ -108,7 +148,7 @@
             // txtXAxis
             // 
             this.txtXAxis.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtXAxis.Location = new System.Drawing.Point(3, 308);
+            this.txtXAxis.Location = new System.Drawing.Point(96, 324);
             this.txtXAxis.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtXAxis.Name = "txtXAxis";
             this.txtXAxis.Size = new System.Drawing.Size(121, 35);
@@ -117,7 +157,7 @@
             // txtYAxis
             // 
             this.txtYAxis.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtYAxis.Location = new System.Drawing.Point(5, 354);
+            this.txtYAxis.Location = new System.Drawing.Point(98, 370);
             this.txtYAxis.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtYAxis.Name = "txtYAxis";
             this.txtYAxis.Size = new System.Drawing.Size(120, 35);
@@ -126,7 +166,7 @@
             // txtZAxis
             // 
             this.txtZAxis.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtZAxis.Location = new System.Drawing.Point(5, 400);
+            this.txtZAxis.Location = new System.Drawing.Point(98, 416);
             this.txtZAxis.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtZAxis.Name = "txtZAxis";
             this.txtZAxis.Size = new System.Drawing.Size(120, 35);
@@ -134,17 +174,17 @@
             // 
             // serCOM
             // 
-            this.serCOM.ReceivedBytesThreshold = 5;
             this.serCOM.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.serCOM_DataReceived);
             // 
             // tmrSerRead
             // 
+            this.tmrSerRead.Interval = 1;
             this.tmrSerRead.Tick += new System.EventHandler(this.tmrSerRead_Tick);
             // 
             // txtXAvg
             // 
             this.txtXAvg.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtXAvg.Location = new System.Drawing.Point(216, 305);
+            this.txtXAvg.Location = new System.Drawing.Point(224, 324);
             this.txtXAvg.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtXAvg.Name = "txtXAvg";
             this.txtXAvg.Size = new System.Drawing.Size(121, 35);
@@ -153,7 +193,7 @@
             // txtYAvg
             // 
             this.txtYAvg.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtYAvg.Location = new System.Drawing.Point(217, 355);
+            this.txtYAvg.Location = new System.Drawing.Point(224, 371);
             this.txtYAvg.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtYAvg.Name = "txtYAvg";
             this.txtYAvg.Size = new System.Drawing.Size(120, 35);
@@ -162,7 +202,7 @@
             // txtZAvg
             // 
             this.txtZAvg.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtZAvg.Location = new System.Drawing.Point(217, 400);
+            this.txtZAvg.Location = new System.Drawing.Point(224, 416);
             this.txtZAvg.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtZAvg.Name = "txtZAvg";
             this.txtZAvg.Size = new System.Drawing.Size(120, 35);
@@ -170,33 +210,33 @@
             // 
             // chrtAccelData
             // 
-            chartArea2.AxisX.MajorGrid.Enabled = false;
-            chartArea2.AxisX.Minimum = 0D;
-            chartArea2.AxisY.MajorGrid.Enabled = false;
-            chartArea2.AxisY.Maximum = 255D;
-            chartArea2.AxisY.Minimum = 0D;
-            chartArea2.Name = "ChartArea1";
-            this.chrtAccelData.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.chrtAccelData.Legends.Add(legend2);
+            chartArea1.AxisX.MajorGrid.Enabled = false;
+            chartArea1.AxisX.Minimum = 0D;
+            chartArea1.AxisY.MajorGrid.Enabled = false;
+            chartArea1.AxisY.Maximum = 255D;
+            chartArea1.AxisY.Minimum = 0D;
+            chartArea1.Name = "ChartArea1";
+            this.chrtAccelData.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.chrtAccelData.Legends.Add(legend1);
             this.chrtAccelData.Location = new System.Drawing.Point(686, 59);
             this.chrtAccelData.Name = "chrtAccelData";
-            series4.ChartArea = "ChartArea1";
-            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series4.Legend = "Legend1";
-            series4.Name = "XAxisData";
-            series5.ChartArea = "ChartArea1";
-            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series5.Legend = "Legend1";
-            series5.Name = "YAxisData";
-            series6.ChartArea = "ChartArea1";
-            series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
-            series6.Legend = "Legend1";
-            series6.Name = "ZAxisData";
-            this.chrtAccelData.Series.Add(series4);
-            this.chrtAccelData.Series.Add(series5);
-            this.chrtAccelData.Series.Add(series6);
-            this.chrtAccelData.Size = new System.Drawing.Size(533, 321);
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series1.Legend = "Legend1";
+            series1.Name = "XAxisData";
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series2.Legend = "Legend1";
+            series2.Name = "YAxisData";
+            series3.ChartArea = "ChartArea1";
+            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Spline;
+            series3.Legend = "Legend1";
+            series3.Name = "ZAxisData";
+            this.chrtAccelData.Series.Add(series1);
+            this.chrtAccelData.Series.Add(series2);
+            this.chrtAccelData.Series.Add(series3);
+            this.chrtAccelData.Size = new System.Drawing.Size(568, 556);
             this.chrtAccelData.TabIndex = 4;
             this.chrtAccelData.Text = "chart1";
             // 
@@ -211,27 +251,74 @@
             this.lstbxSerParam.Size = new System.Drawing.Size(625, 236);
             this.lstbxSerParam.TabIndex = 5;
             // 
-            // Form1
+            // chklstAcceleration
+            // 
+            this.chklstAcceleration.Enabled = false;
+            this.chklstAcceleration.FormattingEnabled = true;
+            this.chklstAcceleration.Items.AddRange(new object[] {
+            "+X",
+            "+Y",
+            "+Z",
+            "-X",
+            "-Y",
+            "-Z"});
+            this.chklstAcceleration.Location = new System.Drawing.Point(397, 321);
+            this.chklstAcceleration.Name = "chklstAcceleration";
+            this.chklstAcceleration.Size = new System.Drawing.Size(67, 130);
+            this.chklstAcceleration.TabIndex = 7;
+            // 
+            // chklstOrientation
+            // 
+            this.chklstOrientation.Enabled = false;
+            this.chklstOrientation.FormattingEnabled = true;
+            this.chklstOrientation.Items.AddRange(new object[] {
+            "+X",
+            "+Y",
+            "+Z",
+            "-X",
+            "-Y",
+            "-Z"});
+            this.chklstOrientation.Location = new System.Drawing.Point(152, 474);
+            this.chklstOrientation.Name = "chklstOrientation";
+            this.chklstOrientation.Size = new System.Drawing.Size(67, 130);
+            this.chklstOrientation.TabIndex = 7;
+            // 
+            // txtbxBytesToRead
+            // 
+            this.txtbxBytesToRead.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtbxBytesToRead.Location = new System.Drawing.Point(449, 541);
+            this.txtbxBytesToRead.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.txtbxBytesToRead.Name = "txtbxBytesToRead";
+            this.txtbxBytesToRead.Size = new System.Drawing.Size(121, 35);
+            this.txtbxBytesToRead.TabIndex = 2;
+            // 
+            // frmMainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1221, 475);
+            this.ClientSize = new System.Drawing.Size(1311, 642);
+            this.Controls.Add(this.chklstOrientation);
+            this.Controls.Add(this.chklstAcceleration);
+            this.Controls.Add(Current);
+            this.Controls.Add(label4);
             this.Controls.Add(this.lstbxSerParam);
             this.Controls.Add(this.chrtAccelData);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(label5);
+            this.Controls.Add(label3);
+            this.Controls.Add(label2);
+            this.Controls.Add(label1);
             this.Controls.Add(this.txtZAvg);
             this.Controls.Add(this.txtZAxis);
             this.Controls.Add(this.txtYAvg);
             this.Controls.Add(this.txtYAxis);
+            this.Controls.Add(this.txtbxBytesToRead);
             this.Controls.Add(this.txtXAvg);
             this.Controls.Add(this.txtXAxis);
             this.Controls.Add(this.btnConnectDisconnect);
             this.Controls.Add(this.cmbbxCOMPorts);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.Name = "Form1";
-            this.Text = "Super Simple Serial Port Reader";
+            this.Name = "frmMainWindow";
+            this.Text = "MECH 423, Lab #1";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.chrtAccelData)).EndInit();
             this.ResumeLayout(false);
@@ -248,14 +335,14 @@
         private System.Windows.Forms.TextBox txtZAxis;
         internal System.IO.Ports.SerialPort serCOM;
         private System.Windows.Forms.Timer tmrSerRead;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox txtXAvg;
         private System.Windows.Forms.TextBox txtYAvg;
         private System.Windows.Forms.TextBox txtZAvg;
         private System.Windows.Forms.DataVisualization.Charting.Chart chrtAccelData;
         private System.Windows.Forms.ListBox lstbxSerParam;
+        private System.Windows.Forms.CheckedListBox chklstAcceleration;
+        private System.Windows.Forms.CheckedListBox chklstOrientation;
+        private System.Windows.Forms.TextBox txtbxBytesToRead;
     }
 }
 

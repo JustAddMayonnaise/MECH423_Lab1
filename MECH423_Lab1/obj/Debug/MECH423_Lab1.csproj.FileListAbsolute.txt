@@ -2,8 +2,8 @@ c:\users\davidwong\documents\visual studio 2015\Projects\MECH423_Lab1\MECH423_La
 C:\Users\davidwong\Documents\Visual Studio 2015\Projects\MECH423_Lab1\MECH423_Lab1\bin\Debug\MECH423_Lab1.exe
 C:\Users\davidwong\Documents\Visual Studio 2015\Projects\MECH423_Lab1\MECH423_Lab1\bin\Debug\MECH423_Lab1.pdb
 C:\Users\davidwong\Documents\Visual Studio 2015\Projects\MECH423_Lab1\MECH423_Lab1\obj\Debug\MECH423_Lab1.csprojResolveAssemblyReference.cache
-C:\Users\davidwong\Documents\Visual Studio 2015\Projects\MECH423_Lab1\MECH423_Lab1\obj\Debug\SerialReaderSuperSimple.Form1.resources
 C:\Users\davidwong\Documents\Visual Studio 2015\Projects\MECH423_Lab1\MECH423_Lab1\obj\Debug\MECH423_Lab1.Properties.Resources.resources
 C:\Users\davidwong\Documents\Visual Studio 2015\Projects\MECH423_Lab1\MECH423_Lab1\obj\Debug\MECH423_Lab1.csproj.GenerateResource.Cache
 C:\Users\davidwong\Documents\Visual Studio 2015\Projects\MECH423_Lab1\MECH423_Lab1\obj\Debug\MECH423_Lab1.exe
 C:\Users\davidwong\Documents\Visual Studio 2015\Projects\MECH423_Lab1\MECH423_Lab1\obj\Debug\MECH423_Lab1.pdb
+C:\Users\davidwong\Documents\Visual Studio 2015\Projects\MECH423_Lab1\MECH423_Lab1\obj\Debug\SerialReaderSuperSimple.frmMainWindow.resources
