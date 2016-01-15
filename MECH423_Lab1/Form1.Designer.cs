@@ -35,11 +35,13 @@
             System.Windows.Forms.Label label4;
             System.Windows.Forms.Label Current;
             System.Windows.Forms.Label label5;
+            System.Windows.Forms.Label label6;
             System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
             System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmMainWindow));
             this.cmbbxCOMPorts = new System.Windows.Forms.ComboBox();
             this.btnConnectDisconnect = new System.Windows.Forms.Button();
             this.txtXAxis = new System.Windows.Forms.TextBox();
@@ -52,16 +54,24 @@
             this.txtZAvg = new System.Windows.Forms.TextBox();
             this.chrtAccelData = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.lstbxSerParam = new System.Windows.Forms.ListBox();
-            this.chklstAcceleration = new System.Windows.Forms.CheckedListBox();
-            this.chklstOrientation = new System.Windows.Forms.CheckedListBox();
             this.txtbxBytesToRead = new System.Windows.Forms.TextBox();
+            this.txtbxOrientation = new System.Windows.Forms.TextBox();
+            this.chkbxGestures = new System.Windows.Forms.CheckedListBox();
+            this.imglstClefairy = new System.Windows.Forms.ImageList(this.components);
+            this.picClefairy = new System.Windows.Forms.PictureBox();
+            this.btnClefairySays = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.txtbxGestureSequence = new System.Windows.Forms.TextBox();
             label1 = new System.Windows.Forms.Label();
             label2 = new System.Windows.Forms.Label();
             label3 = new System.Windows.Forms.Label();
             label4 = new System.Windows.Forms.Label();
             Current = new System.Windows.Forms.Label();
             label5 = new System.Windows.Forms.Label();
+            label6 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.chrtAccelData)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picClefairy)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -122,8 +132,19 @@
             label5.TabIndex = 3;
             label5.Text = "Orientation";
             // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            label6.Location = new System.Drawing.Point(12, 552);
+            label6.Name = "label6";
+            label6.Size = new System.Drawing.Size(153, 29);
+            label6.TabIndex = 3;
+            label6.Text = "Bytes to read";
+            // 
             // cmbbxCOMPorts
             // 
+            this.cmbbxCOMPorts.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbbxCOMPorts.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbbxCOMPorts.FormattingEnabled = true;
             this.cmbbxCOMPorts.Location = new System.Drawing.Point(12, 12);
@@ -219,7 +240,7 @@
             this.chrtAccelData.ChartAreas.Add(chartArea1);
             legend1.Name = "Legend1";
             this.chrtAccelData.Legends.Add(legend1);
-            this.chrtAccelData.Location = new System.Drawing.Point(686, 59);
+            this.chrtAccelData.Location = new System.Drawing.Point(476, 59);
             this.chrtAccelData.Name = "chrtAccelData";
             series1.ChartArea = "ChartArea1";
             series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
@@ -248,61 +269,109 @@
             this.lstbxSerParam.Location = new System.Drawing.Point(13, 59);
             this.lstbxSerParam.MultiColumn = true;
             this.lstbxSerParam.Name = "lstbxSerParam";
-            this.lstbxSerParam.Size = new System.Drawing.Size(625, 236);
+            this.lstbxSerParam.Size = new System.Drawing.Size(457, 236);
             this.lstbxSerParam.TabIndex = 5;
-            // 
-            // chklstAcceleration
-            // 
-            this.chklstAcceleration.Enabled = false;
-            this.chklstAcceleration.FormattingEnabled = true;
-            this.chklstAcceleration.Items.AddRange(new object[] {
-            "+X",
-            "+Y",
-            "+Z",
-            "-X",
-            "-Y",
-            "-Z"});
-            this.chklstAcceleration.Location = new System.Drawing.Point(397, 321);
-            this.chklstAcceleration.Name = "chklstAcceleration";
-            this.chklstAcceleration.Size = new System.Drawing.Size(67, 130);
-            this.chklstAcceleration.TabIndex = 7;
-            // 
-            // chklstOrientation
-            // 
-            this.chklstOrientation.Enabled = false;
-            this.chklstOrientation.FormattingEnabled = true;
-            this.chklstOrientation.Items.AddRange(new object[] {
-            "+X",
-            "+Y",
-            "+Z",
-            "-X",
-            "-Y",
-            "-Z"});
-            this.chklstOrientation.Location = new System.Drawing.Point(152, 474);
-            this.chklstOrientation.Name = "chklstOrientation";
-            this.chklstOrientation.Size = new System.Drawing.Size(67, 130);
-            this.chklstOrientation.TabIndex = 7;
             // 
             // txtbxBytesToRead
             // 
             this.txtbxBytesToRead.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtbxBytesToRead.Location = new System.Drawing.Point(449, 541);
+            this.txtbxBytesToRead.Location = new System.Drawing.Point(171, 549);
             this.txtbxBytesToRead.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.txtbxBytesToRead.Name = "txtbxBytesToRead";
             this.txtbxBytesToRead.Size = new System.Drawing.Size(121, 35);
             this.txtbxBytesToRead.TabIndex = 2;
             // 
+            // txtbxOrientation
+            // 
+            this.txtbxOrientation.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtbxOrientation.Location = new System.Drawing.Point(171, 499);
+            this.txtbxOrientation.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.txtbxOrientation.Name = "txtbxOrientation";
+            this.txtbxOrientation.Size = new System.Drawing.Size(121, 36);
+            this.txtbxOrientation.TabIndex = 2;
+            // 
+            // chkbxGestures
+            // 
+            this.chkbxGestures.Enabled = false;
+            this.chkbxGestures.FormattingEnabled = true;
+            this.chkbxGestures.Items.AddRange(new object[] {
+            "+X",
+            "+Y",
+            "+Z",
+            "-X",
+            "-Y",
+            "-Z"});
+            this.chkbxGestures.Location = new System.Drawing.Point(372, 319);
+            this.chkbxGestures.Name = "chkbxGestures";
+            this.chkbxGestures.Size = new System.Drawing.Size(65, 130);
+            this.chkbxGestures.TabIndex = 7;
+            // 
+            // imglstClefairy
+            // 
+            this.imglstClefairy.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imglstClefairy.ImageStream")));
+            this.imglstClefairy.TransparentColor = System.Drawing.Color.Transparent;
+            this.imglstClefairy.Images.SetKeyName(0, "Clefairy_DOWN.JPG");
+            this.imglstClefairy.Images.SetKeyName(1, "Clefairy_LEFT.jpg");
+            this.imglstClefairy.Images.SetKeyName(2, "Clefairy_RIGHT.JPG");
+            this.imglstClefairy.Images.SetKeyName(3, "Clefairy_UP.JPG");
+            // 
+            // picClefairy
+            // 
+            this.picClefairy.Image = ((System.Drawing.Image)(resources.GetObject("picClefairy.Image")));
+            this.picClefairy.InitialImage = null;
+            this.picClefairy.Location = new System.Drawing.Point(1153, 309);
+            this.picClefairy.Name = "picClefairy";
+            this.picClefairy.Size = new System.Drawing.Size(315, 275);
+            this.picClefairy.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.picClefairy.TabIndex = 8;
+            this.picClefairy.TabStop = false;
+            // 
+            // btnClefairySays
+            // 
+            this.btnClefairySays.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnClefairySays.Location = new System.Drawing.Point(1227, 599);
+            this.btnClefairySays.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnClefairySays.Name = "btnClefairySays";
+            this.btnClefairySays.Size = new System.Drawing.Size(162, 42);
+            this.btnClefairySays.TabIndex = 1;
+            this.btnClefairySays.Text = "Clefairy Says";
+            this.btnClefairySays.UseVisualStyleBackColor = true;
+            this.btnClefairySays.Click += new System.EventHandler(this.btnClefairySays_Click);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Enabled = false;
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.InitialImage = null;
+            this.pictureBox1.Location = new System.Drawing.Point(1153, 12);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(315, 275);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pictureBox1.TabIndex = 8;
+            this.pictureBox1.TabStop = false;
+            // 
+            // txtbxGestureSequence
+            // 
+            this.txtbxGestureSequence.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtbxGestureSequence.Location = new System.Drawing.Point(20, 599);
+            this.txtbxGestureSequence.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.txtbxGestureSequence.Name = "txtbxGestureSequence";
+            this.txtbxGestureSequence.Size = new System.Drawing.Size(402, 35);
+            this.txtbxGestureSequence.TabIndex = 2;
+            // 
             // frmMainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1311, 642);
-            this.Controls.Add(this.chklstOrientation);
-            this.Controls.Add(this.chklstAcceleration);
+            this.ClientSize = new System.Drawing.Size(1642, 779);
+            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.picClefairy);
+            this.Controls.Add(this.chkbxGestures);
             this.Controls.Add(Current);
             this.Controls.Add(label4);
             this.Controls.Add(this.lstbxSerParam);
             this.Controls.Add(this.chrtAccelData);
+            this.Controls.Add(label6);
             this.Controls.Add(label5);
             this.Controls.Add(label3);
             this.Controls.Add(label2);
@@ -311,9 +380,12 @@
             this.Controls.Add(this.txtZAxis);
             this.Controls.Add(this.txtYAvg);
             this.Controls.Add(this.txtYAxis);
+            this.Controls.Add(this.txtbxOrientation);
+            this.Controls.Add(this.txtbxGestureSequence);
             this.Controls.Add(this.txtbxBytesToRead);
             this.Controls.Add(this.txtXAvg);
             this.Controls.Add(this.txtXAxis);
+            this.Controls.Add(this.btnClefairySays);
             this.Controls.Add(this.btnConnectDisconnect);
             this.Controls.Add(this.cmbbxCOMPorts);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -321,6 +393,8 @@
             this.Text = "MECH 423, Lab #1";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.chrtAccelData)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picClefairy)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -340,9 +414,14 @@
         private System.Windows.Forms.TextBox txtZAvg;
         private System.Windows.Forms.DataVisualization.Charting.Chart chrtAccelData;
         private System.Windows.Forms.ListBox lstbxSerParam;
-        private System.Windows.Forms.CheckedListBox chklstAcceleration;
-        private System.Windows.Forms.CheckedListBox chklstOrientation;
         private System.Windows.Forms.TextBox txtbxBytesToRead;
+        private System.Windows.Forms.TextBox txtbxOrientation;
+        private System.Windows.Forms.CheckedListBox chkbxGestures;
+        private System.Windows.Forms.ImageList imglstClefairy;
+        private System.Windows.Forms.PictureBox picClefairy;
+        private System.Windows.Forms.Button btnClefairySays;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.TextBox txtbxGestureSequence;
     }
 }
 

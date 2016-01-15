@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Diagnostics;
 using System.Linq;
+using System.Media;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -26,10 +28,17 @@ namespace SerialReaderSuperSimple
         int ORIENTATION_AVERAGE_N = 10;
         int GRAVITY_CALIBRATION_NUM = 30;
         int lastN;
+        Stopwatch triggerStopwatch = new Stopwatch();
+        Stopwatch sequenceStopwatch = new Stopwatch();
 
         ConcurrentQueue<int> bytesToReadQueue = new ConcurrentQueue<int>();
         int removedBytesToRead;
         int byteSequence = 0;
+
+        int GESTURE_THRESHOLD = 220;
+        
+        SoundPlayer clefairyDancing = new SoundPlayer(@"C:\Users\davidwong\Desktop\Clefairy Pictures\Clefairy_Dancing_Sound.wav");
+        SoundPlayer clefairySaysClassStarting = new SoundPlayer(@"C:\Users\davidwong\Desktop\Clefairy Pictures\Clefairy_Class_Starting.wav");
 
         public frmMainWindow()
         {
@@ -41,7 +50,7 @@ namespace SerialReaderSuperSimple
             serCOM.Parity = System.IO.Ports.Parity.None;
 
             lastN = MAX_AVERAGE_N - ORIENTATION_AVERAGE_N;
-
+            
         }
 
         private void cmbbxCOMPorts_DropDown(object sender, EventArgs e)
@@ -57,14 +66,14 @@ namespace SerialReaderSuperSimple
             if(serCOM.IsOpen)
             {
                 lock (serCOM) serCOM.Close();             // Mutex on the serial port
-                btnConnectDisconnect.Text = "Connect";
-                lstbxSerParam.Items.Clear();
-                cmbbxCOMPorts.Enabled = true;
-                tmrSerRead.Enabled = false;
+                btnConnectDisconnect.Text = "Connect";    // Changes button text to 'connect'
+                lstbxSerParam.Items.Clear();              //
+                cmbbxCOMPorts.Enabled = true;             // Enables clicking on the combo box for COM ports
+                tmrSerRead.Enabled = false;               // Disables the timer for reading concurrent queue from serial port
 				
-                txtXAxis.Clear();                        // Clear txtXAxis box
-                txtYAxis.Clear();                        //
-                txtZAxis.Clear();                        //
+                txtXAxis.Clear();                         // Clear txtXAxis box
+                txtYAxis.Clear();                         // Clear txtYAxis box
+                txtZAxis.Clear();                         // Clear txtZAxis box
             }
             else
             {
@@ -104,53 +113,99 @@ namespace SerialReaderSuperSimple
                 int yAccel = Convert.ToInt16(txtYAxis.Text) - 128;
                 int zAccel = Convert.ToInt16(txtZAxis.Text) - 128;
 
-                if (xAccel < -GRAVITY_CALIBRATION_NUM)
+                if (FLAG_FIRST_VALUE == 0)
                 {
-                    chklstAcceleration.SetItemCheckState(3, CheckState.Checked);
-                    chklstAcceleration.SetItemCheckState(0, CheckState.Unchecked);
-                }
-                else if (xAccel > GRAVITY_CALIBRATION_NUM)
-                {
-                    chklstAcceleration.SetItemCheckState(0, CheckState.Checked);
-                    chklstAcceleration.SetItemCheckState(3, CheckState.Unchecked);
+                    FLAG_FIRST_VALUE = 1;
+                    previousXValue = xAccel;
+                    previousYValue = yAccel;
+                    previousZValue = zAccel;
                 }
                 else
                 {
-                    chklstAcceleration.SetItemCheckState(3, CheckState.Unchecked);
-                    chklstAcceleration.SetItemCheckState(0, CheckState.Unchecked);
-                }
+                    if (!triggerStopwatch.IsRunning)
+                    {
+                        if (xAccel - previousXValue > GESTURE_THRESHOLD)
+                        {
+                            chkbxGestures.SetItemCheckState(0, CheckState.Checked);
+                            triggerStopwatch.Start();
+                            if (!sequenceStopwatch.IsRunning) sequenceStopwatch.Start();
+                            gestureSequenceList.Add(0);
+                        }
+                        else if (xAccel - previousXValue < -GESTURE_THRESHOLD)
+                        {
+                            chkbxGestures.SetItemCheckState(3, CheckState.Checked);
+                            triggerStopwatch.Start();
+                            if (!sequenceStopwatch.IsRunning) sequenceStopwatch.Start();
+                            gestureSequenceList.Add(3);
+                        }
+                        else if (yAccel - previousYValue > GESTURE_THRESHOLD)
+                        {
+                            chkbxGestures.SetItemCheckState(1, CheckState.Checked);
+                            picClefairy.Image = imglstClefairy.Images[1];
+                            clefairyDancing.Play();
+                            triggerStopwatch.Start();
+                            if (!sequenceStopwatch.IsRunning) sequenceStopwatch.Start();
+                            gestureSequenceList.Add(1);
+                        }
+                        else if (yAccel - previousYValue < -GESTURE_THRESHOLD)
+                        {
+                            chkbxGestures.SetItemCheckState(4, CheckState.Checked);
+                            picClefairy.Image = imglstClefairy.Images[2];
+                            clefairyDancing.Play();
+                            triggerStopwatch.Start();
+                            if (!sequenceStopwatch.IsRunning) sequenceStopwatch.Start();
+                            gestureSequenceList.Add(4);
+                        }
+                        else if (zAccel - previousZValue > GESTURE_THRESHOLD)
+                        {
+                            chkbxGestures.SetItemCheckState(5, CheckState.Checked);
+                            picClefairy.Image = imglstClefairy.Images[0];
+                            clefairyDancing.Play();
+                            triggerStopwatch.Start();
+                            if (!sequenceStopwatch.IsRunning) sequenceStopwatch.Start();
+                            gestureSequenceList.Add(5);
+                        }
+                        else if (zAccel - previousZValue < -GESTURE_THRESHOLD)
+                        {
+                            chkbxGestures.SetItemCheckState(2, CheckState.Checked);
+                            picClefairy.Image = imglstClefairy.Images[3];
+                            clefairyDancing.Play();
+                            triggerStopwatch.Start();
+                            if (!sequenceStopwatch.IsRunning) sequenceStopwatch.Start();
+                            gestureSequenceList.Add(2);
+                        }
+                    }
 
-                if (yAccel < -GRAVITY_CALIBRATION_NUM)
-                {
-                    chklstAcceleration.SetItemCheckState(4, CheckState.Checked);
-                    chklstAcceleration.SetItemCheckState(1, CheckState.Unchecked);
-                }
-                else if (yAccel > GRAVITY_CALIBRATION_NUM)
-                {
-                    chklstAcceleration.SetItemCheckState(1, CheckState.Checked);
-                    chklstAcceleration.SetItemCheckState(4, CheckState.Unchecked);
-                }
-                else
-                {
-                    chklstAcceleration.SetItemCheckState(4, CheckState.Unchecked);
-                    chklstAcceleration.SetItemCheckState(1, CheckState.Unchecked);
-                }
+                    previousXValue = xAccel;
+                    previousYValue = yAccel;
+                    previousZValue = zAccel;
 
-                if (zAccel < -GRAVITY_CALIBRATION_NUM)
-                {
-                    chklstAcceleration.SetItemCheckState(5, CheckState.Checked);
-                    chklstAcceleration.SetItemCheckState(2, CheckState.Unchecked);
+                    if (triggerStopwatch.ElapsedMilliseconds > 100)
+                    {
+                        triggerStopwatch.Reset();
+                    }
+                    if (sequenceStopwatch.ElapsedMilliseconds > 2000)
+                    {
+                        sequenceStopwatch.Reset();
+                        chkbxGestures.SetItemCheckState(0, CheckState.Unchecked);
+                        chkbxGestures.SetItemCheckState(1, CheckState.Unchecked);
+                        chkbxGestures.SetItemCheckState(2, CheckState.Unchecked);
+                        chkbxGestures.SetItemCheckState(3, CheckState.Unchecked);
+                        chkbxGestures.SetItemCheckState(4, CheckState.Unchecked);
+                        chkbxGestures.SetItemCheckState(5, CheckState.Unchecked);
+                        if (gestureSequenceList.SequenceEqual(gestureSimplePunch)) txtbxGestureSequence.Text = "Simple punch";
+                        else if (gestureSequenceList.SequenceEqual(gestureRightHook)) txtbxGestureSequence.Text = "Right hook";
+                        else txtbxGestureSequence.Text = "***UNRECOGNIZED SEQUENCE***";
+                        gestureSequenceList.Clear();
+                    }
                 }
-                else if (zAccel > GRAVITY_CALIBRATION_NUM)
-                {
-                    chklstAcceleration.SetItemCheckState(2, CheckState.Checked);
-                    chklstAcceleration.SetItemCheckState(5, CheckState.Unchecked);
-                }
-                else
-                {
-                    chklstAcceleration.SetItemCheckState(5, CheckState.Unchecked);
-                    chklstAcceleration.SetItemCheckState(2, CheckState.Unchecked);
-                }
+                if (xAccel < -GRAVITY_CALIBRATION_NUM) txtbxOrientation.Text = "X";
+                else if (xAccel > GRAVITY_CALIBRATION_NUM) txtbxOrientation.Text = "-X";
+                else if (yAccel < -GRAVITY_CALIBRATION_NUM) txtbxOrientation.Text = "Y";
+                else if (yAccel > GRAVITY_CALIBRATION_NUM) txtbxOrientation.Text = "-Y";
+                else if (zAccel < -GRAVITY_CALIBRATION_NUM) txtbxOrientation.Text = "-Z";
+                else if (zAccel > GRAVITY_CALIBRATION_NUM) txtbxOrientation.Text = "Z";
+                else txtbxOrientation.Clear();
 
                 xAxisQueue.Enqueue(Convert.ToInt16(txtXAxis.Text));
                 yAxisQueue.Enqueue(Convert.ToInt16(txtYAxis.Text));
@@ -175,55 +230,6 @@ namespace SerialReaderSuperSimple
                 txtXAvg.Text = Convert.ToString(xAxisQueue.Average());
                 txtYAvg.Text = Convert.ToString(yAxisQueue.Average());
                 txtZAvg.Text = Convert.ToString(zAxisQueue.Average());
-
-                IEnumerable<int> orientationAverageX = xAxisQueue.Skip(lastN);
-                int averageX = 0;
-                foreach (int itemInOrientationQueue in orientationAverageX)
-                    averageX += itemInOrientationQueue - 128;
-                averageX = averageX / ORIENTATION_AVERAGE_N;
-
-                IEnumerable<int> orientationAverageY = yAxisQueue.Skip(lastN);
-                int averageY = 0;
-                foreach (int itemInOrientationQueue in orientationAverageY)
-                    averageY += itemInOrientationQueue - 128;
-                averageX = averageY / ORIENTATION_AVERAGE_N;
-
-                IEnumerable<int> orientationAverageZ = xAxisQueue.Skip(lastN);
-                int averageZ = 0;
-                foreach (int itemInOrientationQueue in orientationAverageZ)
-                    averageZ += itemInOrientationQueue - 128;
-                averageZ = averageZ / ORIENTATION_AVERAGE_N;
-
-                if (averageX < -5)
-                    chklstOrientation.SetItemCheckState(3, CheckState.Checked);
-                else if (averageX > 5)
-                    chklstOrientation.SetItemCheckState(0, CheckState.Checked);
-                else
-                {
-                    chklstOrientation.SetItemCheckState(3, CheckState.Unchecked);
-                    chklstOrientation.SetItemCheckState(0, CheckState.Unchecked);
-                }
-
-                if (averageY < -5)
-                    chklstOrientation.SetItemCheckState(4, CheckState.Checked);
-                else if (averageY > 5)
-                    chklstOrientation.SetItemCheckState(1, CheckState.Checked);
-                else
-                {
-                    chklstOrientation.SetItemCheckState(4, CheckState.Unchecked);
-                    chklstOrientation.SetItemCheckState(1, CheckState.Unchecked);
-                }
-
-                if (averageZ < -5)
-                    chklstOrientation.SetItemCheckState(5, CheckState.Checked);
-                else if (averageZ > 5)
-                    chklstOrientation.SetItemCheckState(2, CheckState.Checked);
-                else
-                {
-                    chklstOrientation.SetItemCheckState(5, CheckState.Unchecked);
-                    chklstOrientation.SetItemCheckState(2, CheckState.Unchecked);
-                }
-
             }
         }
 
@@ -260,7 +266,11 @@ namespace SerialReaderSuperSimple
                 outputDataQueue.Enqueue(readBytes);
             }
         }
-        
-        
+
+        private void btnClefairySays_Click(object sender, EventArgs e)
+        {
+            clefairySaysClassStarting.Play();
+            pictureBox1.Enabled = true;
+        }
     }
 }
